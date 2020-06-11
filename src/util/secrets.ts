@@ -15,10 +15,11 @@ const prod = ENVIRONMENT === 'production' // Anything else is treated as 'dev'
 
 export const SESSION_SECRET = process.env['SESSION_SECRET'] as string
 export const JWT_SECRET = process.env['SESSION_SECRET'] as string
-export const MONGODB_URI = (prod
-  ? process.env['MONGODB_URI']
-  : process.env['MONGODB_URI_LOCAL']) as string
-// export const MONGODB_URI = process.env['MONGODB_URI'] as string
+// export const MONGODB_URI = (prod
+//   ? process.env['MONGODB_URI']
+//   : process.env['MONGODB_URI_LOCAL']) as string
+// console.log('111', process.env)
+export const MONGODB_URI = process.env['MONGO_URI'] as string
 
 if (!SESSION_SECRET || !JWT_SECRET) {
   logger.error(

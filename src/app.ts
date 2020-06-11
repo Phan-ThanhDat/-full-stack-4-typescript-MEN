@@ -18,7 +18,6 @@ import movieRouter from './routers/movie'
 import apiErrorHandler from './middlewares/apiErrorHandler'
 import apiContentType from './middlewares/apiContentType'
 import products from './routers/product'
-import { importDB } from './seeder'
 
 const app = express()
 const mongoUrl = MONGODB_URI
