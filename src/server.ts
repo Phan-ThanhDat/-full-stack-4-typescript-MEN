@@ -1,13 +1,5 @@
 import errorHandler from 'errorhandler'
-import bodyParser from 'body-parser'
 import app from './app'
-import express from 'express'
-import products from './routers/product'
-
-const router = express.Router()
-app.use(bodyParser.urlencoded({ extended: true }))
-// parse application/json
-app.use(bodyParser.json())
 
 /**
  * Error Handler. Provides full stack - remove for production

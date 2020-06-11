@@ -4,9 +4,9 @@ import { Request, Response, NextFunction } from 'express'
 export interface ProductType extends mongoose.Document {
   name: string;
   description: string;
-  categories: string[];
+  categories: string;
   variants: string[];
-  sizes: string[];
+  sizes: string;
   user: mongoose.Types.ObjectId;
   isVariable: boolean;
 }
@@ -21,17 +21,18 @@ const ProductSchema = new mongoose.Schema({
   },
   categories: {
     type: String,
+    enum: ['machine', 'fashion', 'funiture', 'food'],
+    default: 'food',
   },
   variants: [
     {
       type: String,
     },
   ],
-  sizes: [String],
+  sizes: String,
   user: {
     type: mongoose.Types.ObjectId,
     ref: 'User',
-    required: true,
   },
   isVariable: {
     type: Boolean,

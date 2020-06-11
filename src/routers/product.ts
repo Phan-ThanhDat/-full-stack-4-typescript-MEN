@@ -2,8 +2,8 @@ import express from 'express'
 
 const router = express.Router()
 
-import { findAll } from '../controllers/product'
+import { findAll, createMovie } from '../controllers/product'
 
-router.route('/').get(findAll)
+router.route('/').get(findAll).post(createMovie)
 
 export default router

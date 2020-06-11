@@ -45,7 +45,7 @@ const UserSchema = new mongoose.Schema({
   products: [
     {
       type: mongoose.Types.ObjectId,
-      ref: 'Bootcamp',
+      ref: 'Product',
     },
   ],
 })

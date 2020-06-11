@@ -18,10 +18,7 @@ import movieRouter from './routers/movie'
 import apiErrorHandler from './middlewares/apiErrorHandler'
 import apiContentType from './middlewares/apiContentType'
 import products from './routers/product'
-
-dotenv.config({
-  path: '../config.env',
-})
+import { importDB } from './seeder'
 
 const app = express()
 const mongoUrl = MONGODB_URI
@@ -55,9 +52,11 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(lusca.xframe('SAMEORIGIN'))
 app.use(lusca.xssProtection(true))
-
+// importDB()
 // Use movie router
 app.use('/api/v1/movies', movieRouter)
+
+// Use products router
 app.use('/api/v1/products', products)
 // Custom API error handler
 app.use(apiErrorHandler)
