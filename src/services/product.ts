@@ -5,12 +5,16 @@ function findAll(): Promise<ProductType[]> {
   return Product.find().sort({ name: 1 }).exec() // Return a Promise
 }
 
-function create(product: ProductType): Promise<ProductType> {
-  return product.save()
+function findProductByQueryParams(req: Request): Promise<ProductType[]> {
+  return Product.find(req.query).exec()
 }
 
 function findProductById(id: string): Promise<ProductType | null> {
   return Product.findById(id).exec()
+}
+
+function create(product: ProductType): Promise<ProductType> {
+  return product.save()
 }
 
 async function updateProductById(req: Request): Promise<ProductType | null> {
@@ -30,8 +34,9 @@ async function deleteAllProducs(): Promise<ProductType | null> {
 
 export default {
   findAll,
-  create,
   findProductById,
+  findProductByQueryParams,
+  create,
   updateProductById,
   deleteProductById,
   deleteAllProducs,

@@ -36,6 +36,19 @@ export const findProductById = async (
   }
 }
 
+// GET /products/filter
+export const findProductByQuery = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    res.status(200).json(await ProductService.findProductByQueryParams(req))
+  } catch (error) {
+    next(new NotFoundError('Product not found', error))
+  }
+}
+
 // PATCH /products/:id
 export const updateProductById = async (
   req: Request,
@@ -122,7 +135,7 @@ export const deleteProductById = async (
   }
 }
 
-// GET /products
+// DELETE /products
 export const deleteAll = async (
   req: Request,
   res: Response,
