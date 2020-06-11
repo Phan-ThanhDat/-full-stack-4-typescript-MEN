@@ -1,6 +1,10 @@
 import errorHandler from 'errorhandler'
-
+import bodyParser from 'body-parser'
 import app from './app'
+
+app.use(bodyParser.urlencoded({ extended: true }))
+// parse application/json
+app.use(bodyParser.json())
 
 /**
  * Error Handler. Provides full stack - remove for production
