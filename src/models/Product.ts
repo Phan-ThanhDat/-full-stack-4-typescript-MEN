@@ -1,7 +1,7 @@
 import mongoose, { Document } from 'mongoose'
 import { Request, Response, NextFunction } from 'express'
 
-export interface Product extends mongoose.Document {
+export interface ProductType extends mongoose.Document {
   name: string;
   description: string;
   categories: string[];
@@ -39,4 +39,4 @@ const ProductSchema = new mongoose.Schema({
   },
 })
 
-module.exports = mongoose.model<Product>('User', ProductSchema)
+export default mongoose.model<ProductType>('Product', ProductSchema)

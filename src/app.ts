@@ -9,6 +9,7 @@ import path from 'path'
 import mongoose from 'mongoose'
 import passport from 'passport'
 import bluebird from 'bluebird'
+import dotenv from 'dotenv'
 
 import { MONGODB_URI, SESSION_SECRET } from './util/secrets'
 
@@ -16,6 +17,11 @@ import movieRouter from './routers/movie'
 
 import apiErrorHandler from './middlewares/apiErrorHandler'
 import apiContentType from './middlewares/apiContentType'
+import products from './routers/product'
+
+dotenv.config({
+  path: '../config.env',
+})
 
 const app = express()
 const mongoUrl = MONGODB_URI
@@ -38,7 +44,10 @@ mongoose
   })
 
 // Express configuration
-app.set('port', process.env.PORT || 3000)
+app.set('port', process.env.PORT || 5000)
+
+// const PORT = process.env.PORT || 5000
+// const server = app.listen(PORT, () => {})
 
 // Use common 3rd-party middlewares
 app.use(compression())
@@ -49,7 +58,7 @@ app.use(lusca.xssProtection(true))
 
 // Use movie router
 app.use('/api/v1/movies', movieRouter)
-
+app.use('/api/v1/products', products)
 // Custom API error handler
 app.use(apiErrorHandler)
 
