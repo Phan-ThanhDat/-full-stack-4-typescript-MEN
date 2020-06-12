@@ -15,7 +15,7 @@ export const findAll = async (
   next: NextFunction
 ) => {
   try {
-    res.status(200).json(await ProductService.findAll())
+    res.status(200).json(await ProductService.findAll(req))
   } catch (error) {
     next(new NotFoundError('Product not found', error))
   }
