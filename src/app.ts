@@ -17,6 +17,7 @@ import movieRouter from './routers/movie'
 
 import apiErrorHandler from './middlewares/apiErrorHandler'
 import apiContentType from './middlewares/apiContentType'
+import users from './routers/user'
 import products from './routers/product'
 
 const app = express()
@@ -55,8 +56,12 @@ app.use(lusca.xssProtection(true))
 // Use movie router
 app.use('/api/v1/movies', movieRouter)
 
+// Use user router
+app.use('/api/v1/users', users)
+
 // Use products router
 app.use('/api/v1/products', products)
+
 // Custom API error handler
 app.use(apiErrorHandler)
 

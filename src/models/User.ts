@@ -1,7 +1,9 @@
 import mongoose, { Document } from 'mongoose'
 import { Request, Response, NextFunction } from 'express'
+import jwt from 'jsonwebtoken'
+import bcrypt from 'bcryptjs'
 
-export interface User extends mongoose.Document {
+export interface UserType extends mongoose.Document {
   name: string;
   email: string;
   role: string;
@@ -10,9 +12,10 @@ export interface User extends mongoose.Document {
   resetPasswordExpire: Date;
   createdAt: Date;
   products: mongoose.Types.ObjectId[];
+  getSignedJwtToken(): jwt.Secret | any;
 }
 
-const UserSchema = new mongoose.Schema({
+export const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'Please add a name'],
@@ -50,4 +53,26 @@ const UserSchema = new mongoose.Schema({
   ],
 })
 
-module.exports = mongoose.model<User>('User', UserSchema)
+UserSchema.pre<UserType>('save', async function (next) {
+  if (!this.isModified('password')) {
+    console.log('inside')
+    next()
+  }
+  console.log('outside')
+  const salt = await bcrypt.genSalt(10)
+  this.password = await bcrypt.hash(this.password, salt)
+})
+
+UserSchema.methods.getSignedJwtToken = function () {
+  return jwt.sign(
+    {
+      id: this._id,
+    },
+    process.env['JWT_SECRET'] as string,
+    {
+      expiresIn: process.env.JWT_EXPIRE,
+    }
+  )
+}
+
+export default mongoose.model<UserType>('User', UserSchema)
