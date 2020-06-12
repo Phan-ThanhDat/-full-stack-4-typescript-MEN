@@ -41,12 +41,22 @@ export const register = async (
   next: NextFunction
 ) => {
   try {
-    console.log(1111)
     // Create user
     const user: UserType = await UserService.createNewUser(req)
+    sendTokenResponse(user, 201, res)
+  } catch (error) {
+    next(new NotFoundError(error.message, error))
+  }
+}
 
-    console.log(222)
-
+export const login = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const user: UserType = await UserService.loginUser(req, next)
+    console.log(user)
     sendTokenResponse(user, 200, res)
   } catch (error) {
     next(new NotFoundError(error.message, error))

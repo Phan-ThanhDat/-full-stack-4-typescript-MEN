@@ -13,6 +13,7 @@ export interface UserType extends mongoose.Document {
   createdAt: Date;
   products: mongoose.Types.ObjectId[];
   getSignedJwtToken(): jwt.Secret | any;
+  matchPassword(password: string): boolean;
 }
 
 export const UserSchema = new mongoose.Schema({
@@ -73,6 +74,11 @@ UserSchema.methods.getSignedJwtToken = function () {
       expiresIn: process.env.JWT_EXPIRE,
     }
   )
+}
+
+// Match user entered password to hashed password in db
+UserSchema.methods.matchPassword = async function (enteredPassword: string) {
+  return bcrypt.compare(enteredPassword, this.password)
 }
 
 export default mongoose.model<UserType>('User', UserSchema)
