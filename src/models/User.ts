@@ -1,5 +1,4 @@
-import mongoose, { Document } from 'mongoose'
-import { Request, Response, NextFunction } from 'express'
+import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 
@@ -28,6 +27,7 @@ export const UserSchema = new mongoose.Schema({
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
       'Please add a valid email',
     ],
+    unique: true,
   },
   role: {
     type: String,
@@ -37,7 +37,7 @@ export const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, 'Please input valid password'],
-    minlength: 10,
+    minlength: [10, 'The length of password is 10 charactor'],
     select: false,
   },
   resetPasswordToken: String,

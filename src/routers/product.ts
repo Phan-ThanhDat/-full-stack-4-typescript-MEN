@@ -1,6 +1,7 @@
 import express from 'express'
 
 const router = express.Router()
+import { protect, checkRole } from '../middlewares/auth'
 
 import {
   findAll,
@@ -20,6 +21,11 @@ router
   .patch(updateProductById)
   .delete(deleteProductById)
 
-router.route('/').get(findAll).post(createProduct).delete(deleteAll)
+const rolesPostProduct: string[] = ['admin', 'user']
+router
+  .route('/')
+  .get(findAll)
+  .post([protect, checkRole(['admin'])], createProduct)
+  .delete(deleteAll)
 
 export default router
