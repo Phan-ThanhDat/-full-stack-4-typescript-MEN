@@ -15,7 +15,15 @@ export const findAll = async (
   next: NextFunction
 ) => {
   try {
-    res.status(200).json(await ProductService.findAll(req))
+    const products = await ProductService.findAll(req)
+    if (!products || products.length === 0) {
+      return next(new NotFoundError('Product not found', new Error()))
+    }
+
+    res.status(200).json({
+      success: true,
+      data: products,
+    })
   } catch (error) {
     next(new NotFoundError('Product not found', error))
   }
@@ -59,13 +67,9 @@ export const updateProductById = async (
     const product = await ProductService.updateProductById(req)
 
     if (!product) {
-      return res.status(400).json({
-        success: false,
-        error: 'do not have bootcamp which has same id',
-      })
+      return next(new NotFoundError('Product not found', new Error()))
     }
 
-    console.log(product)
     res.status(200).json({
       success: true,
       data: product,
