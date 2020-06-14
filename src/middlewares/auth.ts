@@ -25,12 +25,13 @@ export const protect = async (
 
   try {
     // Verify token
-    const decoded = jwt.verify(token, process.env['JWT_SECRET'] as string)
-
-    // Extend res objects to next middlewares
-    res.locals.userInfo = decoded
-
+    const decodedJWT = jwt.verify(
+      token,
+      process.env['JWT_SECRET'] as string
+    ) as any
+    req.currentUser = decodedJWT
     next()
+    // Extend res objects to next middlewares
   } catch (err) {
     return next(new ErrorResponse(err.message, 401))
   }
@@ -39,15 +40,17 @@ export const protect = async (
 // Grant access to specific roles
 export const checkRole = (roles: Array<string>) => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const currentUser = await User.findById(res.locals.userInfo.id)
-    if (currentUser && !roles.includes(currentUser.role)) {
-      return next(
-        new ErrorResponse(
-          `User role ${currentUser.role} of ${currentUser.email} can not access`,
-          401
+    if (req.currentUser !== undefined) {
+      const getCurrentUser = await User.findById(req.currentUser.id)
+      if (getCurrentUser && !roles.includes(getCurrentUser.role)) {
+        return next(
+          new ErrorResponse(
+            `User role ${getCurrentUser.role} of ${getCurrentUser.email} can not access`,
+            401
+          )
         )
-      )
+      }
+      next()
     }
-    next()
   }
 }

@@ -56,7 +56,6 @@ export const login = async (
 ) => {
   try {
     const user: UserType = await UserService.loginUser(req, next)
-    console.log(user)
     sendTokenResponse(user, 200, res)
   } catch (error) {
     next(new NotFoundError(error.message, error))

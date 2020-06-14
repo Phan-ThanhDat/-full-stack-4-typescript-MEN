@@ -39,7 +39,7 @@ function findProductById(id: string): Promise<ProductType | null> {
   return Product.findById(id).exec()
 }
 
-function create(product: ProductType): Promise<ProductType> {
+async function create(product: ProductType): Promise<ProductType> {
   return product.save()
 }
 

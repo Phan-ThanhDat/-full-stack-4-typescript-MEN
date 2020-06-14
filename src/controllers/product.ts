@@ -7,6 +7,33 @@ import {
   BadRequestError,
   InternalServerError,
 } from '../helpers/apiError'
+import User, { UserType } from '../models/User'
+
+async function checkAccountBeforeCRUD(
+  id: string,
+  next: NextFunction
+): Promise<any> {
+  const currentId = id
+  const user: UserType | null = await User.findById(currentId).select(
+    '+password'
+  )
+  // Only admin account can post more than one bootcamp
+  if (user && user.role !== 'admin') {
+    return next(
+      new BadRequestError(
+        'This user account is not allowed to create new product',
+        new Error()
+      )
+    )
+  }
+
+  if (!user) {
+    return next(
+      new BadRequestError('Please login before create new product', new Error())
+    )
+  }
+  return user
+}
 
 // GET /products
 export const findAll = async (
@@ -64,16 +91,25 @@ export const updateProductById = async (
   next: NextFunction
 ) => {
   try {
-    const product = await ProductService.updateProductById(req)
+    if (req.currentUser) {
+      const user: UserType = await checkAccountBeforeCRUD(
+        req.currentUser.id,
+        next
+      )
 
-    if (!product) {
-      return next(new NotFoundError('Product not found', new Error()))
+      const product = await ProductService.updateProductById(req)
+
+      if (!product) {
+        return next(new NotFoundError('Product not found', new Error()))
+      }
+
+      res.status(200).json({
+        success: true,
+        data: product,
+      })
+    } else {
+      return next(new BadRequestError('Please check your account', new Error()))
     }
-
-    res.status(200).json({
-      success: true,
-      data: product,
-    })
   } catch (error) {
     next(new NotFoundError('Product not found', error))
   }
@@ -95,17 +131,41 @@ export const createProduct = async (
       isVariable,
     } = req.body
 
-    const product = new Product({
-      name,
-      description,
-      categories,
-      variants,
-      sizes,
-      isVariable,
-    })
-
-    await ProductService.create(product)
-    res.status(201).json(product)
+    if (req.currentUser) {
+      const user: UserType = await checkAccountBeforeCRUD(
+        req.currentUser.id,
+        next
+      )
+      const product = new Product({
+        name,
+        description,
+        categories,
+        variants,
+        sizes,
+        isVariable,
+        user: req.currentUser.id,
+      })
+      // Create product
+      await ProductService.create(product)
+      // Push and save new product to current user
+      console.log(user.products)
+      user.products.push(product._id)
+      console.log(user.products)
+      // const a = await User.findByIdAndUpdate(
+      //   user.id,
+      //   {
+      //     produts: user.products,
+      //   },
+      //   {
+      //     new: true,
+      //     runValidators: true,
+      //   }
+      // )
+      user.save()
+      res.status(201).json(product)
+    } else {
+      return next(new BadRequestError('Please check your account', new Error()))
+    }
   } catch (error) {
     if (error.name === 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
@@ -123,7 +183,7 @@ export const deleteProductById = async (
 ) => {
   try {
     const product = await ProductService.deleteProductById(req)
-    console.log(product)
+
     if (!product) {
       return res.status(400).json({
         success: false,
