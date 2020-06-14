@@ -10,6 +10,7 @@ import mongoose from 'mongoose'
 import passport from 'passport'
 import bluebird from 'bluebird'
 import dotenv from 'dotenv'
+import cookieParser from 'cookie-parser'
 
 import { MONGODB_URI, SESSION_SECRET } from './util/secrets'
 
@@ -47,6 +48,7 @@ app.set('port', process.env.PORT || 5000)
 // const server = app.listen(PORT, () => {})
 
 // Use common 3rd-party middlewares
+app.use(cookieParser())
 app.use(compression())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))

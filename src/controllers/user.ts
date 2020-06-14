@@ -49,6 +49,24 @@ export const register = async (
   }
 }
 
+export const logout = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    res.cookie('token', 'none', {
+      expires: new Date(Date.now() + 100),
+    })
+    res.status(200).json({
+      success: true,
+      message: 'Logout succesfully',
+    })
+  } catch (error) {
+    next(new NotFoundError(error.message, error))
+  }
+}
+
 export const login = async (
   req: Request,
   res: Response,
