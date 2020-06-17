@@ -42,17 +42,14 @@ export const protect = async (
 // Grant access to specific roles
 export const checkRole = (roles: Array<string>) => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    if (req.currentUser !== undefined) {
-      const getCurrentUser = await User.findById(req.currentUser.id)
-      if (getCurrentUser && !roles.includes(getCurrentUser.role)) {
-        return next(
-          new ErrorResponse(
-            `User role ${getCurrentUser.role} of ${getCurrentUser.email} can not access`,
-            401
-          )
+    if (!roles.includes(req.currentUser.role)) {
+      return next(
+        new ErrorResponse(
+          `User role ${req.currentUser.role} of ${req.currentUser.email} can not access`,
+          401
         )
-      }
-      next()
+      )
     }
+    next()
   }
 }
