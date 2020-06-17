@@ -4,8 +4,8 @@ const router = express.Router()
 import { protect, checkRole } from '../middlewares/auth'
 // eslint-disable-next-line @typescript-eslint/
 require('../passport')
-// import * as exportedPassport from '../passport'
-const passport = require('passport')
+
+import passport from 'passport'
 
 import {
   findAll,

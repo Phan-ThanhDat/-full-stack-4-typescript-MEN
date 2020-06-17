@@ -49,3 +49,40 @@ export const jwtStrategy = passport.use(
     }
   )
 )
+
+// LOCAL STRATEGY
+passport.use(
+  new strategyLocal(
+    {
+      usernameField: 'email',
+      passReqToCallback: true,
+    },
+    async (req, email, password, done) => {
+      try {
+        console.log(email, password)
+        // Find the user given the email
+        const user = await User.findOne({ email }).select('+password')
+
+        // If not, handle it
+        if (!user) {
+          return done(null, false)
+        }
+
+        console.log('password--> ', password)
+        // Check if the password is correct
+        const isMatch = await user.matchPassword(password)
+
+        // If not, handle it
+        if (!isMatch) {
+          return done(null, false)
+        }
+
+        // Otherwise, return the user
+        req.currentUser = user
+        done(null, user)
+      } catch (error) {
+        done(error, false)
+      }
+    }
+  )
+)

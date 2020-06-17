@@ -73,8 +73,9 @@ export const login = async (
   next: NextFunction
 ) => {
   try {
-    const user: UserType = await UserService.loginUser(req, next)
-    sendTokenResponse(user, 200, res)
+    // console.log('req.currentUser', req.currentUser)
+    // const user: UserType = await UserService.loginUser(req, next)
+    sendTokenResponse(req.currentUser, 200, res)
   } catch (error) {
     next(new NotFoundError(error.message, error))
   }
