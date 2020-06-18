@@ -6,8 +6,14 @@ import ErrorResponse from '../util/errorResponse'
 
 function createNewUser(req: Request): Promise<UserType> {
   const user = new User(req.body)
+  console.log(user)
   return user.save()
 }
+
+// function createNewUserOathGG(payload: UserType): Promise<UserType> {
+//   const user = new User(payload)
+//   return user.save()
+// }
 
 async function loginUser(req: Request, next: NextFunction): Promise<any> {
   const { email, password } = req.body
@@ -34,4 +40,5 @@ async function loginUser(req: Request, next: NextFunction): Promise<any> {
 export default {
   createNewUser,
   loginUser,
+  // createNewUserOathGG,
 }

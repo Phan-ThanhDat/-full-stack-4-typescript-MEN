@@ -80,3 +80,12 @@ export const login = async (
     next(new NotFoundError(error.message, error))
   }
 }
+
+export const loginWithGG = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  console.log(req.currentUser)
+  sendTokenResponse(req.currentUser, 200, res)
+}

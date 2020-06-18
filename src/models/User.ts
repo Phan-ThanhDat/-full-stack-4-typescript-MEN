@@ -3,25 +3,31 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 
 export interface UserType extends mongoose.Document {
-  name: string;
-  email: string;
-  role: string;
-  password: string;
-  resetPasswordToken: string;
-  resetPasswordExpire: Date;
-  createdAt: Date;
-  products: mongoose.Types.ObjectId[];
-  getSignedJwtToken(): jwt.Secret | any;
-  matchPassword(password: string): boolean;
+  name: string
+  email: string
+  role: string
+  googleId: string
+  password: string
+  resetPasswordToken: string
+  resetPasswordExpire: Date
+  createdAt: Date
+  products: mongoose.Types.ObjectId[]
+  getSignedJwtToken(): jwt.Secret | any
+  matchPassword(password: string): boolean
 }
 
 export const UserSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'Please add a name'],
+    // required: [true, 'Please add a name'],
+    // unique: true,
+  },
+  googleId: {
+    type: String,
     unique: true,
   },
   email: {
+    trim: true,
     type: String,
     match: [
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
@@ -35,8 +41,9 @@ export const UserSchema = new mongoose.Schema({
     default: 'admin',
   },
   password: {
+    trim: true,
     type: String,
-    required: [true, 'Please input valid password'],
+    // required: [true, 'Please input valid password'],
     minlength: [10, 'The length of password is 10 charactor'],
     select: false,
   },
@@ -56,10 +63,9 @@ export const UserSchema = new mongoose.Schema({
 
 UserSchema.pre<UserType>('save', async function (next) {
   if (!this.isModified('password')) {
-    console.log('inside')
     next()
   }
-  console.log('outside')
+  console.log(222)
   const salt = await bcrypt.genSalt(10)
   this.password = await bcrypt.hash(this.password, salt)
 })

@@ -86,3 +86,49 @@ passport.use(
     }
   )
 )
+
+// Google OAuth Strategy
+passport.use(
+  'googleToken',
+  new GooglePlusTokenStrategy(
+    {
+      clientID: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+      passReqToCallback: true,
+    },
+    async (
+      req: Request,
+      accessToken: string,
+      refreshToken: string,
+      profile: any,
+      done
+    ) => {
+      try {
+        // console.log('profile', profile)
+        // console.log('accessToken', accessToken)
+        // console.log('refreshToken', refreshToken)
+
+        const existingUser = await User.findOne({
+          googleId: profile.id,
+          email: profile.emails[0]['value'],
+        })
+
+        if (!existingUser) {
+          console.log(1111)
+          req.currentUser = new User({
+            googleId: profile.id,
+            email: profile.emails[0]['value'],
+            role: 'user',
+          })
+          await req.currentUser.save()
+          return done(null, req.currentUser)
+        } else {
+          req.currentUser = existingUser
+          return done(null, req.currentUser)
+        }
+      } catch (error) {
+        done(error, false, error.message)
+      }
+    }
+  )
+)
