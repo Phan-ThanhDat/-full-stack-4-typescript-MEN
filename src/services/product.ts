@@ -1,20 +1,20 @@
 import Product, { ProductType } from '../models/Product'
 import { Request, Response, NextFunction } from 'express'
 
-function findAll(req: Request): Promise<ProductType[]> {
-  const page = req.query.page || 1
-  const limit = req.query.limit || 10
+function findAll(req?: Request): Promise<ProductType[]> {
+  const page = req?.query.page || 1
+  const limit = req?.query.limit || 10
   const pageOptions = {
     page: page as number,
     limit: limit as number,
   }
   const skip = pageOptions.page * pageOptions.limit
-  console.log(skip)
+
   return (
     Product.find()
       // .skip(skip)
       // .limit(pageOptions.limit)
-      .sort({ name: 1 })
+      // .sort({ name: 1 })
       .exec()
   ) // Return a Promise
 }

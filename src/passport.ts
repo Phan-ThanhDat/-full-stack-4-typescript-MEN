@@ -23,13 +23,14 @@ export const jwtStrategy = passport.use(
   new strategyJWT(
     {
       // jwtFromRequest: cookieExtractor,
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest:
+        ExtractJwt.fromAuthHeaderAsBearerToken() || cookieExtractor,
       secretOrKey: process.env.JWT_SECRET,
       passReqToCallback: true,
     },
     async (req: Request, payload: any, done) => {
       try {
-        console.log('payload=>>> ', req.headers.authorization)
+        console.log('token=>>> ', req.headers.authorization)
         // console.log('user===>>>>>>', user)
         // Find the user specified in token
         const user = await User.findById(payload.id)
