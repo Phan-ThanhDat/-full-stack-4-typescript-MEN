@@ -4,10 +4,8 @@ import User, { UserType } from '../models/User'
 import { Request, Response, NextFunction } from 'express'
 import ErrorResponse from '../util/errorResponse'
 
-function createNewUser(req: Request): Promise<UserType> {
-  const user = new User(req.body)
-  console.log(user)
-  return user.save()
+function createNewUser(newUser: UserType): Promise<UserType> {
+  return newUser.save()
 }
 
 // function createNewUserOathGG(payload: UserType): Promise<UserType> {
@@ -28,7 +26,7 @@ async function loginUser(req: Request, next: NextFunction): Promise<any> {
     return next(new ErrorResponse('Invalid credentials', 401))
   }
 
-  const isMatch = user.matchPassword(password)
+  const isMatch = await user.matchPassword(password)
 
   if (!isMatch) {
     return next(new ErrorResponse('Invalid credentials', 401))

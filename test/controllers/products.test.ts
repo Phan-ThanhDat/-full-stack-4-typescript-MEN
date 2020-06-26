@@ -48,6 +48,7 @@ async function addNewProduct() {
 
     return await ProductService.create(product)
 }
+
 const listProduct = [
     {
         name: 'MacBook air 1',

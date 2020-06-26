@@ -45,8 +45,9 @@ export const register = async (
   next: NextFunction
 ) => {
   try {
+    const newUSer = new User(req.body)
     // Create user
-    const user: UserType = await UserService.createNewUser(req)
+    const user: UserType = await UserService.createNewUser(newUSer)
     sendTokenResponse(user, 201, res)
   } catch (error) {
     next(new NotFoundError(error.message, error))
