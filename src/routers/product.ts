@@ -2,7 +2,7 @@ import express from 'express'
 
 const router = express.Router()
 import { protect, checkRole } from '../middlewares/auth'
-// eslint-disable-next-line @typescript-eslint/
+
 require('../passport')
 
 import passport from 'passport'

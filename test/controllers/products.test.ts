@@ -91,7 +91,7 @@ describe('product controller', () => {
         await dbHelper.closeDatabase()
     })
 
-    it('should return right list products if ProductService.findAll is called', async () => {
+    it('should return right list products when ProductService.findAll is called', async () => {
         await dbHelper.clearDatabase()
 
         // stub ProductService.findAll()
@@ -124,14 +124,14 @@ describe('product controller', () => {
 
         const res = await request(app)
             .get('/api/v1/products')
-        console.log('....res...', res)
-        const is200StatusCode = res.status == 200
+
+        const is200StatusCode = res.body?.statusCode === 200
         expect(is200StatusCode).toBeFalsy()
     })
 
     it('should return 200 when creating new product succeeds', async () => {
         // Login
-        const currentUser = await request(app)
+        const currentUserRes = await request(app)
             .post('/api/v1/users/login')
             .send(adminAccount)
 
@@ -146,7 +146,7 @@ describe('product controller', () => {
                 sizes: '12.6 inches',
                 isVariable: true,
             })
-            .set('Authorization', `Bearer ${currentUser?.body?.token}`)
+            .set('Authorization', `Bearer ${currentUserRes?.body?.token}`)
         const is200StatusCode = res.status == 201
 
         expect(res.body.name).toEqual('MacBook pro 2018')

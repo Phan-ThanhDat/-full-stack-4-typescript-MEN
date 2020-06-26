@@ -6,7 +6,7 @@ const passportLocal = passport.authenticate('local', { session: false })
 
 const router = express.Router()
 
-import { register, login, logout, loginWithGG } from '../controllers/user'
+import { register, login, logout } from '../controllers/user'
 import validatePassword, { schemas } from '../middlewares/validate'
 
 router.post('/register', register)
@@ -19,7 +19,7 @@ router.post(
 router.post(
   '/oauth/google',
   passport.authenticate('googleToken', { session: false }),
-  loginWithGG
+  login
 )
 router.get('/logout', logout)
 export default router

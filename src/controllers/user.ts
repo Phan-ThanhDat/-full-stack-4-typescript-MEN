@@ -29,10 +29,14 @@ const sendTokenResponse = (
     options.secure = true
   }
 
-  res.status(statusCode).cookie('token', token, options).json({
-    success: true,
-    token,
-  })
+  res
+    .status(statusCode)
+    .cookie('token', token, options)
+    .set('Authorization', `Bearer ${token}`)
+    .json({
+      success: true,
+      token,
+    })
 }
 
 export const register = async (
@@ -81,11 +85,11 @@ export const login = async (
   }
 }
 
-export const loginWithGG = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  console.log(req.currentUser)
-  sendTokenResponse(req.currentUser, 200, res)
-}
+// export const loginWithGG = async (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ) => {
+//   console.log(req.currentUser)
+//   sendTokenResponse(req.currentUser, 200, res)
+// }
