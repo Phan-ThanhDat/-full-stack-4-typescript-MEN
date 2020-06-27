@@ -11,6 +11,7 @@ import {findAll} from '../../src/controllers/product'
 import app from '../../src/app'
 import User from '../../src/models/User';
 import bcrypt from 'bcryptjs';
+import {MovieDocument} from "../../src/models/Movie";
 
 class Response {
     status(status) {
@@ -36,17 +37,10 @@ class Request {}
 //       }
 //     },
 
-async function addNewProduct() {
-    const product = new Product({
-        name: 'MacBook air check1ww',
-        description: 'Laptop',
-        categories: 'machine',
-        variants: ['white', 'silver'],
-        sizes: '14.4 inches',
-        isVariable: true,
-    })
-
-    return await ProductService.create(product)
+async function addNewProduct(newProduct : Partial<ProductType>) {
+    return await request(app)
+      .post('/api/v1/products')
+      .send(newProduct)
 }
 
 const listProduct = [
@@ -74,7 +68,7 @@ const adminAccount = {
 describe('product controller', () => {
     beforeEach(async () => {
         await dbHelper.connect()
-        await Product.insertMany([...listProduct])
+        // await Product.insertMany([...listProduct])
 
         const salt = await bcrypt.genSalt(10)
         const passwordEncrypted = await bcrypt.hash(adminAccount.password, salt)
@@ -112,6 +106,9 @@ describe('product controller', () => {
     })
 
     it('should return 200 when getting all list succeeds', async () => {
+        await addNewProduct(listProduct[0])
+        await addNewProduct(listProduct[1])
+
         const res = await request(app)
             .get('/api/v1/products')
         console.log('....res...', res)

@@ -61,6 +61,7 @@ describe('movie service', () => {
     expect(updated).toHaveProperty('_id', movie._id)
     expect(updated).toHaveProperty('name', 'Shrek')
     expect(updated).toHaveProperty('publishedYear', 2001)
+    expect(updated).toHaveProperty('duration', 90)
   })
 
   it('should not update a non-existing movie', async () => {
