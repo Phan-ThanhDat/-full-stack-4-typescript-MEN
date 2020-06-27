@@ -19,7 +19,7 @@ export const JWT_SECRET = process.env['SESSION_SECRET'] as string
 // ? process.env['MONGO_URI']
 // : process.env['MONGODB_URI_LOCAL']) as string
 // console.log('111', process.env)
-export const MONGODB_URI = process.env['MONGO_URI'] as string
+export const MONGODB_URI = process.env['MONGODB_URI_LOCAL'] as string
 
 if (!SESSION_SECRET || !JWT_SECRET) {
   logger.error(

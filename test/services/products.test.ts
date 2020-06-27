@@ -9,6 +9,8 @@ import request from 'supertest'
 
 import { Request, Response, NextFunction } from 'express'
 
+const nonExistingProductId = 'NanaChoHeo123456789'
+
 // class Response {
 //   status(status) {
 //     this.status = status
@@ -21,20 +23,34 @@ import { Request, Response, NextFunction } from 'express'
 
 // class Request {}
 
-async function addProduct() {
-  const product = new Product({
+let req = {
+      query: {
+        categories: 'machine',
+      },
+      params: {
+        id: '5aa06bb80738152cfd536fdc',
+        driverId: '5aa13452e1e2c3277688e734'
+      }
+    }
+
+async function addNewProduct(override?) {
+  let product = {
     name: 'MacBook air check1ww',
     description: 'Laptop',
     categories: 'machine',
     variants: ['white', 'silver'],
     sizes: '14.4 inches',
     isVariable: true,
-  })
+  }
 
-  // return await ProductService.add
+  if (override) {
+    product = {...product, ...override}
+  }
+  const newProduct = new Product(product)
+  return await ProductService.create(newProduct)
 }
 
-describe('movie service', () => {
+describe('product service', () => {
   beforeEach(async () => {
     await dbHelper.connect()
   })
@@ -47,7 +63,26 @@ describe('movie service', () => {
     await dbHelper.closeDatabase()
   })
 
-  it.only('should return 200 if findAll succeeds', async () => {
+  it('should return list products when findAll succeeds', async () => {
       // stub -> ProductService.findAll(req)
+    const addNewProductRes = await addNewProduct()
+    const findAllProducts = await ProductService.findAll()
+    console.log(findAllProducts)
+    expect(findAllProducts[0]['_doc']).toHaveProperty('_id')
+    expect(findAllProducts[0]['_doc']!.name).toEqual('MacBook air check1ww')
+    expect(findAllProducts[0]['_doc']!.description).toEqual('Laptop')
+    expect(findAllProducts[0]['_doc']!.categories).toEqual('machine')
+    expect(findAllProducts[0]['_doc']!.sizes).toEqual('14.4 inches')
+    expect(findAllProducts[0]['_doc']!.isVariable).toEqual(true)
+  })
+
+  it('should get product list when query params is valid', async () => {
+    // expect.assertions(1)
+    const addNewProductRes = await addNewProduct()
+    const listProduct = await ProductService.findProductByQueryParams(req.query)
+    expect(listProduct.length).toEqual(1)
+    expect(listProduct[0]['_doc'].name).toEqual('MacBook air check1ww')
+    expect(listProduct[0]['_doc'].categories).toEqual('machine')
+    expect(listProduct[0]['_doc']).toHaveProperty('_id')
   })
 })

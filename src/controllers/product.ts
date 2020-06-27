@@ -71,14 +71,22 @@ export const findProductById = async (
   }
 }
 
-// GET /products/filter
+// GET /products/filter?name=NanaPeBong&description=heomap
 export const findProductByQuery = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    res.status(200).json(await ProductService.findProductByQueryParams(req))
+    const productFound = await ProductService.findProductByQueryParams(
+      req.query
+    )
+    if (!productFound || productFound.length < 1) {
+      return next(
+        new NotFoundError('Product not found with the params', new Error())
+      )
+    }
+    res.status(200).json()
   } catch (error) {
     next(new NotFoundError('Product not found', error))
   }

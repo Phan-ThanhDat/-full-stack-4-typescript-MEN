@@ -25,18 +25,6 @@ class Response {
 
 class Request {}
 
-// let req = {
-//       body: {
-//         manufacturer: "Toyota",
-//         name: "Camry",
-//         model: "2018",
-//       },
-//       params: {
-//         id: "5aa06bb80738152cfd536fdc",
-//         driverId: "5aa13452e1e2c3277688e734"
-//       }
-//     },
-
 async function addNewProduct(newProduct : Partial<ProductType>) {
     return await request(app)
       .post('/api/v1/products')

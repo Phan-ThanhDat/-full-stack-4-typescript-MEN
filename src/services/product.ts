@@ -16,19 +16,26 @@ function findAll(req?: Request): Promise<ProductType[]> {
       // .limit(pageOptions.limit)
       // .sort({ name: 1 })
       .exec()
+    // .then(product => {
+    //   if (!product) {
+    //     throw new Error('Product not found')
+    //   }
+    //   return product
+    // })
   ) // Return a Promise
 }
 
-function findProductByQueryParams(req: Request): Promise<ProductType[]> {
-  const page = req.query.page || 1
-  const limit = req.query.limit || 10
+function findProductByQueryParams(query): Promise<ProductType[]> {
+  const page = query.page || 1
+  const limit = query.limit || 10
   const pageOptions = {
     page: (page as number) || 0,
     limit: limit as number,
   }
+  console.log('req.query =>>>>', query)
 
   return (
-    Product.find(req.query)
+    Product.find(query)
       // .skip(pageOptions.page * pageOptions.limit)
       // .limit(pageOptions.limit)
       .exec()
