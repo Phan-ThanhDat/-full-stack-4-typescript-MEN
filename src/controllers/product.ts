@@ -81,6 +81,7 @@ export const findProductByQuery = async (
     const productFound = await ProductService.findProductByQueryParams(
       req.query
     )
+
     if (!productFound || productFound.length < 1) {
       return next(
         new NotFoundError('Product not found with the params', new Error())

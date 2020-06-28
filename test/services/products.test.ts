@@ -85,4 +85,15 @@ describe('product service', () => {
     expect(listProduct[0]['_doc'].categories).toEqual('machine')
     expect(listProduct[0]['_doc']).toHaveProperty('_id')
   })
+
+  it('should get error message list when filtering product by query params is empty', async () => {
+    expect.assertions(1)
+    const addNewProductRes = await addNewProduct()
+
+    try {
+      const listProduct = await ProductService.findProductByQueryParams(req.params)
+    } catch (e) {
+      expect(e.message).toMatch(`Product with ${req.params} not found`)
+    }
+  })
 })

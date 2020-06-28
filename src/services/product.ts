@@ -39,6 +39,12 @@ function findProductByQueryParams(query): Promise<ProductType[]> {
       // .skip(pageOptions.page * pageOptions.limit)
       // .limit(pageOptions.limit)
       .exec()
+      .then((p) => {
+        if (!p || p.length < 1) {
+          throw new Error(`Product with ${query} not found`)
+        }
+        return p
+      })
   )
 }
 
