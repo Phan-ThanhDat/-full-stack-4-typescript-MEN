@@ -9,9 +9,9 @@ import * as sinongMongoose from 'sinon-mongoose'
 import { DocumentQuery } from 'mongoose'
 import {findAll} from '../../src/controllers/product'
 import app from '../../src/app'
-import User from '../../src/models/User';
-import bcrypt from 'bcryptjs';
-import {MovieDocument} from "../../src/models/Movie";
+import User from '../../src/models/User'
+import bcrypt from 'bcryptjs'
+import {MovieDocument} from '../../src/models/Movie'
 
 class Response {
     status(status) {
