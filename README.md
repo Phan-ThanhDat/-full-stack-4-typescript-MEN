@@ -1,5 +1,7 @@
 # Deploy Rest API: https://rest-api-e-commerce.herokuapp.com/
 
+## Example: Please take a look `E-commercial.postman_collection.json` file with 4 main HTTP methods: GET - POST - PATCH/PUT - DELETE
+
 # TypeScript MEN (MongoDB, ExpressJS, NodeJS) boilerplate
 
 This boilerplate is based on the [TypeScript Node Starter](https://github.com/microsoft/TypeScript-Node-Starter) whose documentation is below, with some modifications

@@ -1,0 +1,407 @@
+{
+	"info": {
+		"_postman_id": "2c44e5f2-6906-4f9f-82db-b78ef8fe37e0",
+		"name": "E-commercial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "get all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "JSON Type",
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/products",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "duc phan",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMTE2NTMyYWNmNjlhMWI5YmE2ODkwYSIsImlhdCI6MTU5NDk3NTU1MywiZXhwIjoxNTk3NTY3NTUzfQ.bSjRgr9TIqC5oNXKHkynINoRa4mBGrvXq_F7CaiShG8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZjQ2NWM2MjY1MThkMDc4MDFlYWQ5YSIsImlhdCI6MTU5MzA3NTc1NCwiZXhwIjoxNTk1NjY3NzU0fQ.0Fk64KMevMMfcdUgY3jTddyaHTO2xWNMhYlZl3D-suA",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"MacBook air ljkj\",\n    \"description\": \"Laptop\",\n    \"categories\": \"machine\",\n    \"variants\": [\"white\", \"silver\"],\n    \"Sizes\": \"14.4 inches\",\n    \"isVariable\": true\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/products/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update product with patch",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"MacBook Pro 2013b\"\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/products/5ee24c93b8afff83095b9e89",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"5ee24c93b8afff83095b9e89"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete product by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"MacBook Pro 2013b\"\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/products/5ee25282dfb8e184f09bdfed",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"5ee25282dfb8e184f09bdfed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get product by Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"MacBook Pro 2013b\"\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/products/5ee254e5dd5229859f628fce",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"5ee254e5dd5229859f628fce"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete all products exist",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"MacBook Pro 2013b\"\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/products/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by query params",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/v1/products/filter?name=MacBook Pro 2013k1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "MacBook Pro 2013k1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create new user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"phduc.phadddnhongtdu1c@gmail.com\",\n    \"name\": \"duc ddddd\",\n    \"role\": \"user\",\n    \"password\": \"12345678910\"\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/users/register",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"phduc.phadddnhongtduc_admin@gmail.com\",\n    \"name\": \"duc phan admin\",\n    \"role\": \"admin\",\n    \"password\": \"12345678910\"\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/users/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZTYyMjZlY2RmMTI5MjUzMWNmZWE1ZiIsImlhdCI6MTU5MjE0MDM5OCwiZXhwIjoxNTk0NzMyMzk4fQ.e3UGr0eVbRyNojA6HoTXqumoJ0EF3rxxryOLdaLQoQo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"MacBook Pro rtr\",\n    \"description\": \"Laptop\",\n    \"categories\": \"machine\",\n    \"variants\": [\"white\", \"silver\"],\n    \"Sizes\": \"14.4 inches\",\n    \"isVariable\": true\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/users/logout",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login GG",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"access_token\": \"ya29.a0AfH6SMCX4E55wA6pm9LgLG9e9WQY0T5pgmm4E1yODUx1Clcy3G8FzC8xpDD4nSbomVQeLTK02Zg6X1DfXkenvJEvCxFfGCmABTTEM0B-hNhi70feMIbLMUjOw8-nO2k9RnqVUT_ZKJCwu85OzW5BCmnCfJrjQEtiPOs\", \n  \"scope\": \"https://www.googleapis.com/auth/userinfo.profile openid https://www.googleapis.com/auth/userinfo.email\", \n  \"expires_in\": 3599, \n  \"token_type\": \"Bearer\", \n  \"id_token\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlNGViZTQ4N2Q1Y2RmMmIwMjZhM2IyMjlkODZmMGQ0MjU4NDQ5ZmUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI0MDc0MDg3MTgxOTIuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI0MDc0MDg3MTgxOTIuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTE5MjgyNDA1OTg0MDE5MTU0OTYiLCJlbWFpbCI6InBoZHVjLnBoYW5ob25nZHVjQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoiaXpvMTRtU0M5OUVWdEtWYUNKRmFXZyIsImlhdCI6MTU5NDk4Mzc5NCwiZXhwIjoxNTk0OTg3Mzk0fQ.UUyHeZS-RMVrCgx5j7bUMPoXGiSIlwUCQ2rNzjewdbcAqRKhos9o8vftMsJ4DXyjds0X5T5u0m1th2PmyetJ07lyCYK1uewWJBRH3SDQpwqvuu39utTXDbBvmrsVlT4Jxt3BpSPuzp5Y0x9Iu-SoC7dZfdw83Iq5_P2_i286TCc06Xnxldw5plMYzqhUwMfU5MenQoD7W6v82_pUiH91n6Z9xTGoCDanpEMcmg3-fpGV-zUU0X_MgTUY_7ducAoGxYZqg_iMBIMAuYJgugqgKThRpW1_dlIkiIyqWtRndsQwuEy0JNtyyyD5c76lfy5CpzeXS_Bt4BPEE-t1sc7qvA\"\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/users/oauth/google",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"oauth",
+								"google"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
