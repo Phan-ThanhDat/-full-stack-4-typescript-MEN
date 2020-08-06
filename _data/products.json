@@ -1,0 +1,74 @@
+[
+  {
+    "_id": "5d713995b721c3bb38c1f5d01",
+    "name": "MacBook Pro 2010",
+    "description": "Laptop",
+    "categories": "machine",
+    "variants": ["white", "silver"],
+    "Sizes": "13.4 inches",
+    "isVariable": true
+  },
+  {
+    "_id": "5d713995b721c3bb38c1f5d02",
+    "name": "MacBook Pro 2010",
+    "description": "Laptop",
+    "categories": "machine",
+    "variants": ["white", "silver"],
+    "Sizes": "13.4 inches",
+    "isVariable": true
+  },
+  {
+    "_id": "5d713995b721c3bb38c1f5d3",
+    "name": "MacBook Pro 2010",
+    "description": "Laptop",
+    "categories": "machine",
+    "variants": ["white", "silver"],
+    "Sizes": "13.4 inches",
+    "isVariable": true
+  },
+  {
+    "_id": "5d713995b721c3bb38c1f5d04",
+    "name": "MacBook Pro 2010",
+    "description": "Laptop",
+    "categories": "machine",
+    "variants": ["white", "silver"],
+    "Sizes": "13.4 inches",
+    "isVariable": true
+  },
+  {
+    "_id": "5d713995b721c3bb38c1f5d05",
+    "name": "MacBook Pro 2010",
+    "description": "Laptop",
+    "categories": "machine",
+    "variants": ["white", "silver"],
+    "Sizes": "13.4 inches",
+    "isVariable": true
+  },
+  {
+    "_id": "5d713995b721c3bb38c1f5d06",
+    "name": "MacBook Pro 2010",
+    "description": "Laptop",
+    "categories": "machine",
+    "variants": ["white", "silver"],
+    "Sizes": "13.4 inches",
+    "isVariable": true
+  },
+  {
+    "_id": "5d713995b721c3bb38c1f5d07",
+    "name": "MacBook Pro 2010",
+    "description": "Laptop",
+    "categories": "machine",
+    "variants": ["white", "silver"],
+    "Sizes": "13.4 inches",
+    "isVariable": true
+  },
+  {
+    "_id": "5d713995b721c3bb38c1f5d078",
+    "name": "MacBook Pro 2010",
+    "description": "Laptop",
+    "categories": "machine",
+    "variants": ["white", "silver"],
+    "Sizes": "13.4 inches",
+    "isVariable": true
+  }
+]
